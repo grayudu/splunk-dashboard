@@ -1,0 +1,25 @@
+{
+  "name": "node-proxy",
+  "version": "1.0.0",
+  "description": "Simple example of how to create a web proxy with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northben/node-proxy.git"
+  },
+  "author": "Ben Northway",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/northben/node-proxy/issues"
+  },
+  "homepage": "https://github.com/northben/node-proxy#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-http-proxy": "^0.6.0",
+    "jquery": "^2.1.4",
+    "splunk-sdk": "^1.8.0"
+  }
+}
