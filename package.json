@@ -2,7 +2,7 @@
   "name": "splunk-dashboard",
   "version": "1.0.0",
   "description": "Let's build a dashboard!",
-  "main": "index.js",
+  "main": "web.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/northben/splunk-dashboard#readme",
   "dependencies": {
+    "angular": "^1.4.8",
+    "bootstrap": "^3.3.6",
     "express": "^4.13.3",
     "express-http-proxy": "^0.6.0",
     "jquery": "^2.1.4",
