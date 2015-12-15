@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p>hello world!</p>
+    <ul id="status"></ul>
+
+    <script type="text/javascript" src="node_modules/splunk-sdk/client/splunk.js"></script>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+      var http = new splunkjs.ProxyHttp("/proxy");
+      var service = new splunkjs.Service(http,
+        {
+          username: "admin",
+          password: "changeme"
+        });
+
+      service.login(function(err, success) {
+          if (err) {
+              console.log(err);
+              throw err;
+          }
+
+        console.log("Login was successful: " + success);
+        service.jobs().fetch(function(err, jobs) {
+            var jobList = jobs.list();
+            for(var i = 0; i < jobList.length; i++) {
+                console.log("Job " + i + ": " + jobList[i].sid);
+                $("ul#status").append("<li>Job " + i + ": " + jobList[i].sid + '</li>');
+            }
+        });
+      });
+    </script>
+  </body>
+</html>
