@@ -1,21 +1,21 @@
 {
-  "name": "node-proxy",
+  "name": "splunk-dashboard",
   "version": "1.0.0",
-  "description": "Simple example of how to create a web proxy with Node.js",
+  "description": "Let's build a dashboard!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/northben/node-proxy.git"
+    "url": "git+https://github.com/northben/splunk-dashboard.git"
   },
   "author": "Ben Northway",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/northben/node-proxy/issues"
+    "url": "https://github.com/northben/splunk-dashboard/issues"
   },
-  "homepage": "https://github.com/northben/node-proxy#readme",
+  "homepage": "https://github.com/northben/splunk-dashboard#readme",
   "dependencies": {
     "express": "^4.13.3",
     "express-http-proxy": "^0.6.0",
