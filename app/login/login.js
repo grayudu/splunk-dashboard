@@ -35,6 +35,10 @@ angular.module('myApp.login', ['ngRoute'])
         }
         else {
           console.log("Login was successful: " + success);
+          var key = service.sessionKey;
+          // Save the session key and username in cookies
+          $.cookie("splunk_sessionkey", key);
+          $.cookie("splunk_username", username);
           window.location.href = "#/home";
         }
       });

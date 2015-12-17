@@ -6,10 +6,9 @@ require.config({
 
 require(["splunkjs/config"], function() {
   splunkjs.config({
-    proxyPath: "/proxy",
     port: 8089,
     scheme: "https",
-    host: "localhost",
+    host: "ec2-52-32-71-47.us-west-2.compute.amazonaws.com",
     authenticate: function (done) {
         require([
             "jquery",
@@ -88,6 +87,5 @@ angular.module('myApp.home', ['ngRoute'])
         chart.render();
         chart.createChart();
       }
-
   });
 }]);
