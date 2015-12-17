@@ -8,7 +8,8 @@ require(["splunkjs/config"], function() {
   splunkjs.config({
     port: 8089,
     scheme: "https",
-    host: "ec2-52-32-71-47.us-west-2.compute.amazonaws.com",
+    proxyPath: "/proxy",
+    host: "localhost",
     authenticate: function (done) {
         require([
             "jquery",
@@ -38,6 +39,7 @@ angular.module('myApp.home', ['ngRoute'])
   });
 }])
 
+// .controller('HomeCtrl', ['$scope', 'splunk', function($scope, splunk) {
 .controller('HomeCtrl', ['$scope', function($scope) {
 
   function isCurrentCategory(v) {
@@ -52,40 +54,25 @@ angular.module('myApp.home', ['ngRoute'])
       "splunkjs/mvc/eventsviewerview",
       "util"
   ];
-  require(deps, function (that) {
-      var SearchManager = require("splunkjs/mvc/searchmanager");
-      var ChartView = require("splunkjs/mvc/chartview");
-      var EventsViewerView = require("splunkjs/mvc/eventsviewerview");
+  require(deps, function () {
+    var SearchManager = require("splunkjs/mvc/searchmanager");
+    var ChartView = require("splunkjs/mvc/chartview");
+    var EventsViewerView = require("splunkjs/mvc/eventsviewerview");
 
-      console.log('here');
+    var mysearch = new SearchManager({
+        id: "search1",
+        preview: true,
+        cache: true,
+        status_buckets: 300,
+        search: "index=_internal | head 1000 | stats count by sourcetype"
+    });
 
-      if (typeof that.Components.attributes.search1 === 'undefined') {
-        var mysearch = new SearchManager({
-            id: "search1",
-            preview: true,
-            cache: true,
-            status_buckets: 300,
-            search: "index=_internal | head 1000 | stats count by sourcetype"
-        });
-      }
-
-      if (typeof that.Components.attributes.mychart === 'undefined') {
-        console.log('render');
-        var mychart = new ChartView({
-            id: 'mychart',
-            managerid: "search1",
-            type: "bar",
-            el: $("#mychart")
-        }).render();
-      }
-      else {
-        console.log('rerender');
-        var chart = splunkjs.mvc.Components.getInstance('mychart');
-        console.log(chart);
-        chart.settings.set('height', 600);
-        chart.show();
-        chart.render();
-        chart.createChart();
-      }
+    var mychart = new ChartView({
+        id: 'mychart',
+        managerid: "search1",
+        type: "bar",
+        el: $("#mychart")
+    }).render();
   });
+
 }]);

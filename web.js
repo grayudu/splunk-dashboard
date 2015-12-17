@@ -17,18 +17,8 @@ app.use('/proxy', proxy('https://ec2-52-32-71-47.us-west-2.compute.amazonaws.com
     return require('url').parse(req.url).path;
   },
   intercept: function(rsp, data, req, res, callback) {
-    try {
-      data = JSON.parse(data.toString('utf8'));
-      data = JSON.stringify(data);
-    }
-    catch(err) {
-      console.log('not json!');
-    }
-    try {
-      callback(null, data);
-    } catch (e) {
-      console.log('nope!');
-    }
+    var buf = new Buffer(data);
+    callback(null, buf);
   },
   port: 8089
 }));
