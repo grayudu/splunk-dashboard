@@ -1,39 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
   <head>
     <meta charset="utf-8">
     <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app.css">
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Dashboard</title>
+    <style type="text/css">
+      .navbar-brand>img {
+         max-height: 100%;
+         height: 100%;
+         width: auto;
+         margin: 0 auto;
+         display: inline;
+      }
+    </style>
   </head>
   <body>
-    <p>hello world!</p>
-    <ul id="status"></ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          <!-- </button> -->
+          <a class="navbar-brand" href="#"><img src="img/sno.png" alt="Sno">&nbsp;Splunking</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/home">Dashboard</a></li>
+            <li><a href="#/login">Log In</a></li>
+            <li><a href="#" onclick="logout()">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <script type="text/javascript" src="node_modules/splunk-sdk/client/splunk.js"></script>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <div class="container-fluid" ng-view>
+    </div>
 
-    <script type="text/javascript" charset="utf-8">
-      var http = new splunkjs.ProxyHttp("/proxy");
-      var service = new splunkjs.Service(http,
-        {
-          username: "admin",
-          password: "changeme"
-        });
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="/node_modules/angular-route/angular-route.js"></script>
+    <!-- <script type="text/javascript" src="/node_modules/requirejs/require.js"></script> -->
+    <!-- <script type="text/javascript" src="/static/splunkjs/splunk.min.js"></script> -->
+    <script type="text/javascript" src="/static/splunkjs/config.js"></script>
 
-      service.login(function(err, success) {
-          if (err) {
-              console.log(err);
-              throw err;
-          }
-
-        console.log("Login was successful: " + success);
-        service.jobs().fetch(function(err, jobs) {
-            var jobList = jobs.list();
-            for(var i = 0; i < jobList.length; i++) {
-                console.log("Job " + i + ": " + jobList[i].sid);
-                $("ul#status").append("<li>Job " + i + ": " + jobList[i].sid + '</li>');
-            }
-        });
-      });
-    </script>
+    <script src="app.js"></script>
+    <script src="login/login.js"></script>
+    <script src="home/home.js"></script>
   </body>
 </html>

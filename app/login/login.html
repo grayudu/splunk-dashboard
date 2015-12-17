@@ -1,0 +1,17 @@
+<link href="login/signin.css" rel="stylesheet">
+<div class="row">
+  <div class="col-md-8 main">
+    <div class="row">
+      <form class="form-signin" action="javascript:void(0);">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" id="usernamebox" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="pwbox" class="form-control" placeholder="Password" required>
+        <p>If login is successful, a session key is returned and stored in a cookie, along with the username.</p>
+        <button class="btn btn-lg btn-primary btn-block" data-ng-click="onLogin()">Log in</button>
+        <span id="errorText"></span>
+      </form>
+    </div>
+  </div>
+</div>

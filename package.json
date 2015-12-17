@@ -18,10 +18,12 @@
   "homepage": "https://github.com/northben/splunk-dashboard#readme",
   "dependencies": {
     "angular": "^1.4.8",
+    "angular-route": "^1.4.8",
     "bootstrap": "^3.3.6",
     "express": "^4.13.3",
     "express-http-proxy": "^0.6.0",
     "jquery": "^2.1.4",
+    "requirejs": "^2.1.22",
     "splunk-sdk": "^1.8.0"
   }
 }

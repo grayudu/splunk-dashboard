@@ -12,7 +12,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // to YOUR_SPLUNK_SERVER on port 8089 using TLS
 // I don't fully understand the JSON parsing that is necessary in the
 // intercept property, but it is necessary to work
-app.use('/proxy', proxy('https://https://ec2-52-32-71-47.us-west-2.compute.amazonaws.com', {
+app.use('/proxy', proxy('https://ec2-52-32-71-47.us-west-2.compute.amazonaws.com', {
   forwardPath: function(req, res) {
     return require('url').parse(req.url).path;
   },
@@ -24,7 +24,11 @@ app.use('/proxy', proxy('https://https://ec2-52-32-71-47.us-west-2.compute.amazo
     catch(err) {
       console.log('not json!');
     }
-    callback(null, data);
+    try {
+      callback(null, data);
+    } catch (e) {
+      console.log('nope!');
+    }
   },
   port: 8089
 }));
@@ -33,5 +37,6 @@ app.use('/proxy', proxy('https://https://ec2-52-32-71-47.us-west-2.compute.amazo
 // note that the inner function refers to the dependency
 // for the library, not the instance
 app.use('/', express.static(__dirname + "/app"));
+app.use('/node_modules', express.static(__dirname + "/node_modules"));
 
 app.listen(process.env.PORT || 5000);

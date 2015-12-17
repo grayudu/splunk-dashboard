@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <li ng-class="{'active':isCurrentCategory('view1')}"><a href="#/view1">Splunk Overview <span class="sr-only">(current)</span></a></li>
+      <li ng-class="{'active':isCurrentCategory('view2')}"><a href="#/view2">User Characteristics</a></li>
+      <li ng-class="{'active':isCurrentCategory('')}"><a href="#">Post Content</a></li>
+      <li ng-class="{'active':isCurrentCategory('')}"><a href="#">Timing</a></li>
+    </ul>
+    <ul class="nav nav-sidebar">
+      <li><a href="#">Textual Analysis</a></li>
+      <li><a href="#">Subreddit Trends</a></li>
+    </ul>
+  </div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Dashboard</h1>
+    <div class="row placeholders">
+      <div class="col-xs-12 col-md-3">
+        <div id="mychart" style="height: 400px;"></div>
+        <h4>Bar Chart</h4>
+        <span class="text-muted">Splunk Event count by sourcetype</span>
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <div id="mychart3"></div>
+        <h4>Pie Chart</h4>
+        <span class="text-muted">Top 5 Event Sources</span>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div id="mychart2"></div>
+        <h4>Timeline</h4>
+        <span class="text-muted">Events over time by component</span>
+      </div>
+    </div>
+    <h2 class="sub-header">Recent Events</h2>
+    <div id="myeventsviewer"></div>
+  </div>
+  <link href="dashboard.css" rel="stylesheet">
+</div>
