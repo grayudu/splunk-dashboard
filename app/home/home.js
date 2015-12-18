@@ -105,6 +105,13 @@ angular.module('myApp.home', ['ngRoute'])
         el: $("#mychart3")
     }).render();
 
+    var myeventsviewer = new EventsViewerView({
+        id: "eviewer1",
+        managerid: "search1",
+        el: $("#myeventsviewer")
+    }).render();
+
+
   });
 
 }]);
