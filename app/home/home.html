@@ -20,8 +20,10 @@
         <span class="text-muted">{{ chart.description }}</span>
       </div>
     </div>
-    <h2 class="sub-header">Recent Events</h2>
-    <div id="myeventsviewer"></div>
+    <div ng-repeat="detail in details">
+      <h2 class="sub-header">{{ detail.title }}</h2>
+      <div id="{{ detail.id }}"></div>
+    </div>
   </div>
   <link href="dashboard.css" rel="stylesheet">
 </div>

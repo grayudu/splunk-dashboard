@@ -54,7 +54,8 @@ angular.module('myApp.home', ['ngRoute'])
       description: "Splunk Event Count by Sourcetype",
       managerid: "mysearch1",
       type: "bar",
-      el: '$("#mychart1")'
+      el: '$("#mychart1")',
+      class: 'ChartView'
     },
     {
       id: "mychart2",
@@ -62,7 +63,8 @@ angular.module('myApp.home', ['ngRoute'])
       description: "Top 5 Event Sources",
       managerid: "mysearch2",
       type: "pie",
-      el: '$("#mychart2")'
+      el: '$("#mychart2")',
+      class: 'ChartView'
     },
     {
       id: "mychart3",
@@ -70,11 +72,24 @@ angular.module('myApp.home', ['ngRoute'])
       description: "Events Over Time by Component",
       managerid: "mysearch3",
       type: "line",
-      el: '$("#mychart3")'
-    },
+      el: '$("#mychart3")',
+      class: 'ChartView'
+    }
   ]
 
   $scope.charts = charts;
+
+  var details = [
+    {
+      id: "eviewer1",
+      title: "Recent Events",
+      managerid: "mysearch1",
+      el: '$("#eviewer1")',
+      class: 'EventsViewerView'
+    },
+  ]
+
+  $scope.details = details;
 
   var deps = [
       "splunkjs/ready!",
@@ -98,16 +113,22 @@ angular.module('myApp.home', ['ngRoute'])
         search: "index=_internal | head 1000 | stats count by sourcetype"
     });
 
-    var createChart = function(options) {
-      new ChartView({
-          id: options.id,
-          managerid: options.managerid,
-          type: options.type,
-          el: eval(options.el),
-      }).render();
+    var createChart = function(chart) {
+      var options = {
+          id: chart.id,
+          managerid: chart.managerid,
+          el: eval(chart.el),
+      };
+      if (chart.type) {
+        options.type = chart.type
+      }
+      var evalString = 'new ' + chart.class + '(options).render();';
+      eval(evalString);
     }
 
     charts.map(createChart);
+
+    details.map(createChart);
 
     var mysearch2 = new SearchManager({
         id: "mysearch2",
@@ -125,11 +146,6 @@ angular.module('myApp.home', ['ngRoute'])
         search: "index=_internal earliest=-2d@d | timechart count by component"
     });
 
-    var myeventsviewer = new EventsViewerView({
-        id: "eviewer1",
-        managerid: "mysearch1",
-        el: $("#myeventsviewer")
-    }).render();
 
     var destroyChart = function(chart) {
         mvc.Components.getInstance(chart.id).dispose();
