@@ -1,0 +1,9 @@
+ [
+  {
+    "id": "eviewer1",
+    "title": "Recent Events",
+    "managerid": "mysearch1",
+    "el": "$('#eviewer1')",
+    "class": "EventsViewerView"
+  }
+]

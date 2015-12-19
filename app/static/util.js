@@ -1,7 +1,3 @@
-require.config({
-    baseUrl: "static/"
-});
-
 var logout = function () {
   require(["jquery",
            "jquery.cookie"

@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('myApp.home', ['ngRoute'])
+angular.module('myApp.userCharacteristics', ['ngRoute'])
 
 // .controller('HomeCtrl', ['$scope', 'splunk', function($scope, splunk) {
-.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('UserCharacteristicsCtrl', ['$scope', '$http', function($scope, $http) {
 
-  $scope.title = "Overview"
+  $scope.title = "User Characteristics"
 
   function isCurrentCategory(v) {
-    return v === 'home';
+    return v === 'userCharacteristics';
   }
   $scope.isCurrentCategory = isCurrentCategory;
 
@@ -26,21 +26,27 @@ angular.module('myApp.home', ['ngRoute'])
 
   var deps = [
       'splunkjs/ready!',
+      'util',
       'splunk_utils'
   ];
   require(deps, function () {
+
+    var mvc = require('splunkjs/mvc');
+
+    var destroyInstance = function(instance) {
+        mvc.Components.getInstance(instance.id).dispose();
+    }
 
     require(['splunk_utils'], function(util) {
       $scope.charts.map(util.createChart);
       $scope.details.map(util.createChart);
       $scope.searches.map(util.createSearch);
+    });
 
-      $scope.$on('$destroy', function() {
-        $scope.charts.map(destroyInstance);
-        $scope.details.map(destroyInstance);
-        $scope.searches.map(destroyInstance);
-      });
-
+    $scope.$on('$destroy', function() {
+      $scope.charts.map(destroyInstance);
+      $scope.details.map(destroyInstance);
+      $scope.searches.map(destroyInstance);
     });
 
   });

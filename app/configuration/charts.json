@@ -1,0 +1,29 @@
+[
+  {
+    "id": "mychart1",
+    "title": "Bar Chart",
+    "description": "Splunk Event Count by Sourcetype",
+    "managerid": "mysearch1",
+    "type": "bar",
+    "el": "$('#mychart1')",
+    "class": "ChartView"
+  },
+  {
+    "id": "mychart2",
+    "title" : "Pie Chart",
+    "description": "Top 5 Event Sources",
+    "managerid": "mysearch2",
+    "type": "pie",
+    "el": "$('#mychart2')",
+    "class": "ChartView"
+  },
+  {
+    "id": "mychart3",
+    "title": "Timeline",
+    "description": "Events Over Time by Component",
+    "managerid": "mysearch3",
+    "type": "line",
+    "el": "$('#mychart3')",
+    "class": "ChartView"
+  }
+]
