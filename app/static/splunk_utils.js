@@ -19,7 +19,7 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
       }
       var evalString = 'new ' + chart.class + '(options).render()';
       return eval(evalString);
-    }
+    };
 
     var createSearch = function(search) {
       var options = {
@@ -31,11 +31,12 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
       };
       var evalString = 'new ' + search.class + '(options)';
       eval(evalString);
-    }
+    };
 
     var destroyInstance = function(instance) {
-        mvc.Components.getInstance(instance.id).dispose();
-    }
+      console.log('destroying', instance);
+      mvc.Components.getInstance(instance.id).dispose();
+    };
 
     return {
       createChart: createChart,
