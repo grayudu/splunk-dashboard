@@ -21,7 +21,7 @@ config(['$routeProvider', function($routeProvider) {
     controller: 'UserCharacteristicsCtrl'
   });
   $routeProvider.otherwise({
-    redirectTo: '/home'});
+    redirectTo: '/login'});
 }]);
 
 require.config({
