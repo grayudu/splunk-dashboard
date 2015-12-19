@@ -24,24 +24,17 @@ angular.module('myApp.home', ['ngRoute'])
     $scope.details = data;
   })
 
-  var deps = [
-      'splunkjs/ready!',
-      'splunk_utils'
-  ];
-  require(deps, function () {
-
-    require(['splunk_utils'], function(util) {
+  require(['splunkjs/ready!'], function () {
+    require(['splunk_utils'], function (util) {
       $scope.charts.map(util.createChart);
       $scope.details.map(util.createChart);
       $scope.searches.map(util.createSearch);
 
       $scope.$on('$destroy', function() {
-        $scope.charts.map(destroyInstance);
-        $scope.details.map(destroyInstance);
-        $scope.searches.map(destroyInstance);
+        $scope.charts.map(util.destroyInstance);
+        $scope.details.map(util.destroyInstance);
+        $scope.searches.map(util.destroyInstance);
       });
-
     });
-
   });
 }]);
