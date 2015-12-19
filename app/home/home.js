@@ -47,6 +47,35 @@ angular.module('myApp.home', ['ngRoute'])
   }
   $scope.isCurrentCategory = isCurrentCategory;
 
+  var charts = [
+    {
+      id: "mychart1",
+      title: "Bar Chart",
+      description: "Splunk Event Count by Sourcetype",
+      managerid: "mysearch1",
+      type: "bar",
+      el: '$("#mychart1")'
+    },
+    {
+      id: "mychart2",
+      title: "Pie Chart",
+      description: "Top 5 Event Sources",
+      managerid: "mysearch2",
+      type: "pie",
+      el: '$("#mychart2")'
+    },
+    {
+      id: "mychart3",
+      title: "Timeline",
+      description: "Events Over Time by Component",
+      managerid: "mysearch3",
+      type: "line",
+      el: '$("#mychart3")'
+    },
+  ]
+
+  $scope.charts = charts;
+
   var deps = [
       "splunkjs/ready!",
       "splunkjs/mvc/searchmanager",
@@ -55,62 +84,64 @@ angular.module('myApp.home', ['ngRoute'])
       "util"
   ];
   require(deps, function () {
+
     var SearchManager = require("splunkjs/mvc/searchmanager");
     var ChartView = require("splunkjs/mvc/chartview");
     var EventsViewerView = require("splunkjs/mvc/eventsviewerview");
+    var mvc = require("splunkjs/mvc");
 
-    var mysearch = new SearchManager({
-        id: "search1",
+    var mysearch1 = new SearchManager({
+        id: "mysearch1",
         preview: true,
         cache: true,
         status_buckets: 300,
         search: "index=_internal | head 1000 | stats count by sourcetype"
     });
 
-    var mychart = new ChartView({
-        id: 'mychart',
-        managerid: "search1",
-        type: "bar",
-        el: $("#mychart")
-    }).render();
+    var createChart = function(options) {
+      new ChartView({
+          id: options.id,
+          managerid: options.managerid,
+          type: options.type,
+          el: eval(options.el),
+      }).render();
+    }
+
+    charts.map(createChart);
 
     var mysearch2 = new SearchManager({
-        id: "search2",
+        id: "mysearch2",
         preview: true,
         cache: true,
         status_buckets: 300,
         search: "index=_internal | head 100 | stats count by source"
     });
 
-    var mychart2 = new ChartView({
-        id: "chart2",
-        type: "pie",
-        managerid: "search2",
-        "charting.chart.showPercent": true,
-        el: $("#mychart2")
-    }).render();
-
     var mysearch3 = new SearchManager({
-        id: "search3",
+        id: "mysearch3",
         preview: true,
         cache: true,
         status_buckets: 300,
         search: "index=_internal earliest=-2d@d | timechart count by component"
     });
 
-    var mychart3 = new ChartView({
-        id: "chart3",
-        managerid: "search3",
-        type: "line",
-        el: $("#mychart3")
-    }).render();
-
     var myeventsviewer = new EventsViewerView({
         id: "eviewer1",
-        managerid: "search1",
+        managerid: "mysearch1",
         el: $("#myeventsviewer")
     }).render();
 
+    var destroyChart = function(chart) {
+        mvc.Components.getInstance(chart.id).dispose();
+    }
+
+    $scope.$on("$destroy", function() {
+      charts.map(destroyChart);
+      mvc.Components.getInstance('mysearch1').dispose();
+      mvc.Components.getInstance('mysearch2').dispose();
+      mvc.Components.getInstance('mysearch3').dispose();
+      mvc.Components.getInstance('eviewer1').dispose();
+    });
 
   });
 
