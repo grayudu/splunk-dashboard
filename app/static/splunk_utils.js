@@ -14,14 +14,16 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
         oldChart.dispose();
       }
 
-      var options = {
-          id: chart.id,
-          managerid: chart.managerid,
-          el: eval(chart.el),
-      };
-      if (chart.type) {
-        options.type = chart.type
-      }
+      var options = {}
+
+      Object.getOwnPropertyNames(chart).forEach(function (val, index, array) {
+        var excludedValues = ['class', 'description', 'title', '$$hashKey', 'el'];
+        if(excludedValues.indexOf(val) == -1) {
+          options[val] = chart[val];
+        }
+      });
+
+      options.el = eval(chart.el);
       var evalString = 'new ' + chart.class + '(options).render()';
       return eval(evalString);
     };

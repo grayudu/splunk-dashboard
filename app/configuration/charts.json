@@ -15,7 +15,8 @@
     "managerid": "mysearch2",
     "type": "pie",
     "el": "$('#mychart2')",
-    "class": "ChartView"
+    "class": "ChartView",
+    "charting.chart.showPercent": true
   },
   {
     "id": "mychart3",
