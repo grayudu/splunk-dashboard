@@ -9,6 +9,11 @@ var deps = [
 
 define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
     var createChart = function(chart) {
+      var oldChart = mvc.Components.getInstance(chart.id);
+      if (oldChart) {
+        oldChart.dispose();
+      }
+
       var options = {
           id: chart.id,
           managerid: chart.managerid,
@@ -22,6 +27,10 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
     };
 
     var createSearch = function(search) {
+      var oldSearch = mvc.Components.getInstance(search.id);
+      if (oldSearch) {
+        oldSearch.dispose();
+      }
       var options = {
           id: search.id,
           preview: search.preview,
@@ -33,14 +42,8 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
       eval(evalString);
     };
 
-    var destroyInstance = function(instance) {
-      console.log('destroying', instance);
-      mvc.Components.getInstance(instance.id).dispose();
-    };
-
     return {
       createChart: createChart,
       createSearch: createSearch,
-      destroyInstance: destroyInstance,
     };
 });

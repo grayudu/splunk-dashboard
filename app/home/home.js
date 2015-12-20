@@ -12,29 +12,30 @@ angular.module('myApp.home', ['ngRoute'])
   }
   $scope.isCurrentCategory = isCurrentCategory;
 
-  $http.get('configuration/charts.json').success(function(data) {
-    $scope.charts = data;
-  })
-
-  $http.get('configuration/searches.json').success(function(data) {
-    $scope.searches = data;
-  })
-
-  $http.get('configuration/details.json').success(function(data) {
-    $scope.details = data;
-  })
-
-  require(['splunkjs/ready!'], function () {
-    require(['splunk_utils'], function (util) {
-      $scope.charts.map(util.createChart);
-      $scope.details.map(util.createChart);
-      $scope.searches.map(util.createSearch);
-
-      $scope.$on('$destroy', function() {
-        $scope.charts.map(util.destroyInstance);
-        $scope.details.map(util.destroyInstance);
-        $scope.searches.map(util.destroyInstance);
+  $http.get('configuration/charts.json').then(function(data) {
+    $scope.charts = data.data;
+    require(['splunkjs/ready!'], function () {
+      require(['splunk_utils'], function (util) {
+        $scope.charts.map(util.createChart);
       });
     });
-  });
+  })
+
+  $http.get('configuration/searches.json').then(function(data) {
+    $scope.searches = data.data;
+    require(['splunkjs/ready!'], function () {
+      require(['splunk_utils'], function (util) {
+        $scope.searches.map(util.createSearch);
+      });
+    });
+  })
+
+  $http.get('configuration/details.json').then(function(data) {
+    $scope.details = data.data;
+    require(['splunkjs/ready!'], function () {
+      require(['splunk_utils'], function (util) {
+        $scope.details.map(util.createChart);
+      });
+    });
+  })
 }]);
