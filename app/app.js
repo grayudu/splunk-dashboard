@@ -22,34 +22,34 @@ config(['$routeProvider', function($routeProvider) {
   });
   $routeProvider.otherwise({
     redirectTo: '/login'});
-}]);
+  }]);
 
-require.config({
-  baseUrl: 'static/',
-});
-
-require(['splunkjs/config'], function() {
-  splunkjs.config({
-    port: 8089,
-    scheme: 'https',
-    proxyPath: '/proxy',
-    host: 'localhost',
-    authenticate: function (done) {
-        require([
-            'jquery',
-            'jquery.cookie'
-        ], function ($) {
-            var splunkSessionKey = $.cookie('splunk_sessionkey');
-            var splunkCurrentUser = $.cookie('splunk_username');
-            if (splunkSessionKey) {
-                done(null, {
-                    sessionKey: splunkSessionKey,
-                    username: splunkCurrentUser
-                });
-            } else {
-                window.location.replace('#/login');
-            }
-        });
-    }
+  require.config({
+    baseUrl: 'static/',
   });
-});
+
+  require(['splunkjs/config'], function() {
+    splunkjs.config({
+      port: 8089,
+      scheme: 'https',
+      proxyPath: '/proxy',
+      host: 'localhost',
+      authenticate: function (done) {
+        require([
+          'jquery',
+          'jquery.cookie'
+        ], function ($) {
+          var splunkSessionKey = $.cookie('splunk_sessionkey');
+          var splunkCurrentUser = $.cookie('splunk_username');
+          if (splunkSessionKey) {
+            done(null, {
+              sessionKey: splunkSessionKey,
+              username: splunkCurrentUser
+            });
+          } else {
+            window.location.replace('#/login');
+          }
+        });
+      }
+    });
+  });
