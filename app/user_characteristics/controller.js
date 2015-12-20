@@ -14,6 +14,7 @@ angular.module('myApp.userCharacteristics', ['ngRoute'])
 
   $http.get('configuration/charts.json').then(function(data) {
     $scope.charts = data.data;
+    $scope.chartsWidth = (12 / $scope.charts.length);
     require(['splunkjs/ready!'], function () {
       require(['splunk_utils'], function (util) {
         $scope.charts.map(util.createChart);

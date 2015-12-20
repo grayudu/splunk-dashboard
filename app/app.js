@@ -34,6 +34,14 @@ config(['$routeProvider', function($routeProvider) {
       scheme: 'https',
       proxyPath: '/proxy',
       host: 'localhost',
+      freeLicense: true,
+      onSessionExpired: function () {
+        require(["jquery", "jquery.cookie"], function ($) {
+          $.cookie("splunk_sessionkey", null, { path: '/'});
+          $.cookie("splunk_username", null, { path: '/'});
+          window.location.replace("#/login");
+        });
+      },
       authenticate: function (done) {
         require([
           'jquery',
