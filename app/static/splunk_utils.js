@@ -4,10 +4,18 @@ var deps = [
   'splunkjs/mvc/chartview',
   'splunkjs/mvc/eventsviewerview',
   'splunkjs/mvc/searchmanager',
-  'splunkjs/mvc'
+  'splunkjs/mvc',
+  'underscore',
 ];
 
-define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
+define(deps, function(ChartView, EventsViewerView, SearchManager, mvc, _) {
+
+  var coalesceMenuTitles = function(config) {
+    return _.map(config, function(c) {
+      c['menu_title'] = c['menu_title'] ? c['menu_title'] : c['title'];
+    });
+  }
+
   var createChart = function(chart) {
     var oldChart = mvc.Components.getInstance(chart.id);
     if (oldChart) {
@@ -47,5 +55,6 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc) {
   return {
     createChart: createChart,
     createSearch: createSearch,
+    coalesceMenuTitles: coalesceMenuTitles,
   };
 });

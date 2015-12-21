@@ -37,7 +37,7 @@ angular.module('myApp.login', ['ngRoute'])
           var key = service.sessionKey;
           $.cookie("splunk_sessionkey", key);
           $.cookie("splunk_username", username);
-          window.location.href = "#/home";
+          window.location.href = "#/view/home";
         }
       });
 

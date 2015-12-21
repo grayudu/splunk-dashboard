@@ -6,19 +6,19 @@ function SplunkService() {
 
 angular.module('myApp', [
   'ngRoute',
-  'myApp.home',
-  'myApp.userCharacteristics',
-  'myApp.login'
+  'myApp.login',
+  'myApp.view',
+  'myApp.contact',
 ]).
 service('splunk', SplunkService).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/home', {
+  $routeProvider.when('/view/:view_name', {
     templateUrl: 'home/home.html',
-    controller: 'HomeCtrl'
+    controller: 'ViewCtrl'
   });
-  $routeProvider.when('/user_characteristics', {
-    templateUrl: 'home/home.html',
-    controller: 'UserCharacteristicsCtrl'
+  $routeProvider.when('/contact', {
+    templateUrl: 'contact/template.html',
+    controller: 'ContactCtrl'
   });
   $routeProvider.otherwise({
     redirectTo: '/login'});
@@ -28,7 +28,7 @@ config(['$routeProvider', function($routeProvider) {
     baseUrl: 'static/',
   });
 
-  require(['splunkjs/config'], function() {
+  require(['splunkjs/config'], function(_) {
     splunkjs.config({
       port: 8089,
       scheme: 'https',

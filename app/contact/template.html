@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar" ng-include="'partials/sidebar.html'"></div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">{{ title }}</h1>
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <p>Hi there! My name is Ben Northway, and I built this website.
+          You can learn more about my work on
+          <a href="http://pixelchef.net">my blog</a> or
+          on <a href="http://github.com/northben">github.com/northben</a>.</p>
+      </div>
+    </div>
+    <div class="row" ng-repeat="chart in detailCharts">
+      <div class="col-md-12">
+        <h2 class="sub-header">Foo</h2>
+        <p>A long time ago in a galaxy far away</p>
+      </div>
+    </div>
+  </div>
+  <link href="dashboard.css" rel="stylesheet">
+</div>

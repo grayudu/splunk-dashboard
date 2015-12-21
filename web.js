@@ -26,6 +26,7 @@ app.use('/proxy', proxy('https://ec2-52-32-71-47.us-west-2.compute.amazonaws.com
 // serve the index.html through the express framework
 // note that the inner function refers to the dependency
 // for the library, not the instance
+app.use('/favicon.ico', express.static(__dirname + "/app/img/sno.png"));
 app.use('/', express.static(__dirname + "/app"));
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 

@@ -1,30 +1,181 @@
 [
   {
-    "id": "mychart1",
-    "title": "Bar Chart",
-    "description": "Splunk Event Count by Sourcetype",
-    "managerid": "mysearch1",
-    "type": "bar",
-    "el": "$('#mychart1')",
-    "class": "ChartView"
+    "config": {
+      "title": "Overview",
+      "menu_title": "Home",
+      "description": "Overview to Dashboard",
+      "menu_weight": 50,
+      "menu_group": 1,
+      "url": "home",
+      "charts": [
+        {
+          "id": "mychart1",
+          "title": "Bar Chart",
+          "description": "Splunk Event Count by Sourcetype",
+          "managerid": "mysearch1",
+          "type": "bar",
+          "el": "$('#mychart1')",
+          "class": "ChartView"
+        },
+        {
+          "id": "mychart2",
+          "title" : "Pie Chart",
+          "description": "Top 5 Event Sources",
+          "managerid": "mysearch2",
+          "type": "pie",
+          "el": "$('#mychart2')",
+          "class": "ChartView",
+          "charting.chart.showPercent": true
+        }
+      ],
+      "detail_charts": [
+        {
+          "id": "eviewer1",
+          "title": "Recent Events",
+          "managerid": "mysearch1",
+          "el": "$('#eviewer1')",
+          "class": "EventsViewerView"
+        }
+      ],
+      "searches": [
+        {
+          "id": "mysearch1",
+          "preview": true,
+          "cache": true,
+          "status_buckets": 300,
+          "search": "index=_internal | head 1000 | stats count by sourcetype",
+          "class": "SearchManager"
+        },
+        {
+          "id": "mysearch2",
+          "preview": true,
+          "cache": true,
+          "status_buckets": 300,
+          "search": "index=_internal | head 100 | stats count by source",
+          "class": "SearchManager"
+        }
+      ]
+    }
   },
   {
-    "id": "mychart2",
-    "title" : "Pie Chart",
-    "description": "Top 5 Event Sources",
-    "managerid": "mysearch2",
-    "type": "pie",
-    "el": "$('#mychart2')",
-    "class": "ChartView",
-    "charting.chart.showPercent": true
+    "config": {
+      "title": "User Characteristics",
+      "description": "Characteristics of User Cohorts",
+      "menu_weight": 50,
+      "menu_group": 2,
+      "url": "user_characteristics",
+      "charts": [
+        {
+          "id": "mychart1",
+          "title": "Bar Chart",
+          "description": "Splunk Event Count by Sourcetype",
+          "managerid": "mysearch1",
+          "type": "bar",
+          "el": "$('#mychart1')",
+          "class": "ChartView"
+        },
+        {
+          "id": "mychart2",
+          "title" : "Pie Chart",
+          "description": "Top 5 Event Sources",
+          "managerid": "mysearch2",
+          "type": "pie",
+          "el": "$('#mychart2')",
+          "class": "ChartView",
+          "charting.chart.showPercent": true
+        }
+      ],
+      "detail_charts": [
+        {
+          "id": "eviewer1",
+          "title": "Recent Events",
+          "managerid": "mysearch1",
+          "el": "$('#eviewer1')",
+          "class": "EventsViewerView"
+        }
+      ],
+      "searches": [
+        {
+          "id": "mysearch1",
+          "preview": true,
+          "cache": true,
+          "status_buckets": 300,
+          "search": "index=_internal | head 1000 | stats count by sourcetype",
+          "class": "SearchManager"
+        },
+        {
+          "id": "mysearch2",
+          "preview": true,
+          "cache": true,
+          "status_buckets": 300,
+          "search": "index=_internal | head 100 | stats count by source",
+          "class": "SearchManager"
+        }
+      ]
+    }
   },
   {
-    "id": "mychart3",
-    "title": "Timeline",
-    "description": "Events Over Time by Component",
-    "managerid": "mysearch3",
-    "type": "line",
-    "el": "$('#mychart3')",
-    "class": "ChartView"
+    "config": {
+      "title": "Post Content",
+      "description": "Longer explanation of this dashboard",
+      "menu_weight": 50,
+      "menu_group": 2,
+      "url": "post_content",
+      "searches": [
+        1,
+        2,
+        3
+      ],
+      "charts": [
+        {
+          "id": "mychart1",
+          "title": "Bar Chart",
+          "description": "Splunk Event Count by Sourcetype",
+          "managerid": "mysearch1",
+          "type": "bar",
+          "el": "$('#mychart1')",
+          "class": "ChartView"
+        },
+        {
+          "id": "mychart2",
+          "title" : "Pie Chart",
+          "description": "Top 5 Event Sources",
+          "managerid": "mysearch2",
+          "type": "pie",
+          "el": "$('#mychart2')",
+          "class": "ChartView",
+          "charting.chart.showPercent": true
+        }
+      ],
+      "detail_charts": [
+        {
+          "id": "eviewer1",
+          "title": "Recent Events",
+          "managerid": "mysearch1",
+          "el": "$('#eviewer1')",
+          "class": "EventsViewerView"
+        }
+      ],
+      "searches": [
+        {
+          "id": "mysearch1",
+          "preview": true,
+          "cache": true,
+          "status_buckets": 300,
+          "search": "index=_internal | head 1000 | stats count by sourcetype",
+          "class": "SearchManager"
+        },
+        {
+          "id": "mysearch2",
+          "preview": true,
+          "cache": true,
+          "status_buckets": 300,
+          "search": "index=_internal | head 100 | stats count by source",
+          "class": "SearchManager"
+        }
+      ]
+    }
   }
+
+
 ]

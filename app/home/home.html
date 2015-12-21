@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-3 col-md-2 sidebar" ng-include="'partials/sidebar.html'"></div>
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">{{ title }}</h1>
+    <h1 class="page-header">{{ config.title }}</h1>
     <div class="row">
       <div class="col-xs-12 col-md-{{ chartsWidth }}" ng-repeat="chart in charts">
         <div id="{{ chart.id }}" style="height: 400px;"></div>
@@ -9,9 +9,11 @@
         <span class="text-muted">{{ chart.description }}</span>
       </div>
     </div>
-    <div ng-repeat="detail in details">
-      <h2 class="sub-header">{{ detail.title }}</h2>
-      <div id="{{ detail.id }}"></div>
+    <div class="row" ng-repeat="chart in detailCharts">
+      <div class="col-md-12">
+        <h2 class="sub-header">{{ chart.title }}</h2>
+        <div id="{{ chart.id }}"></div>
+      </div>
     </div>
   </div>
   <link href="dashboard.css" rel="stylesheet">
