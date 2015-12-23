@@ -23,6 +23,7 @@
     "express": "^4.13.3",
     "express-http-proxy": "^0.6.0",
     "jquery": "^2.1.4",
+    "nconf": "^0.8.2",
     "requirejs": "^2.1.22",
     "splunk-sdk": "^1.8.0"
   }
