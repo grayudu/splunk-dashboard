@@ -12,7 +12,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // to YOUR_SPLUNK_SERVER on port 8089 using TLS
 // I don't fully understand the JSON parsing that is necessary in the
 // intercept property, but it is necessary to work
-var splunkServerUrl = process.env['splunk-server-url'] || '';
+var splunkServerUrl = process.env['splunk_server_url'] || '';
 app.use('/proxy', proxy(splunkServerUrl, {
   forwardPath: function(req, res) {
     return require('url').parse(req.url).path;
