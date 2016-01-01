@@ -23,7 +23,6 @@
     "bootstrap": "^3.3.6",
     "express": "^4.13.3",
     "express-http-proxy": "^0.6.0",
-    "firebase": "^2.3.2",
     "jquery": "^2.1.4",
     "nconf": "^0.8.2",
     "requirejs": "^2.1.22",

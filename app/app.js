@@ -1,17 +1,25 @@
 'use strict';
 
-function SplunkService() {
-
-}
-
-angular.module('myApp', [
+var app = angular.module('myApp', [
   'ngRoute',
   'myApp.login',
   'myApp.view',
   'myApp.contact',
-]).
-service('splunk', SplunkService).
-config(['$routeProvider', function($routeProvider) {
+  'firebase',
+  'angular.filter'
+]);
+
+app.constant('fbURL', 'https://burning-heat-5729.firebaseio.com');
+
+app.factory('Config', function(Firebase, $firebaseArray, fbURL) {
+  return $firebaseArray(new Firebase(fbURL));
+});
+
+app.factory('Menu', function(Firebase, $firebaseArray, fbURL) {
+  return $firebaseArray(new Firebase(fbURL + '/menu'));
+});
+
+app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view/:view_name', {
     templateUrl: 'home/home.html',
     controller: 'ViewCtrl'

@@ -1,5 +1,7 @@
-<ul class="nav nav-sidebar" ng-repeat="group in menu">
-  <li ng-repeat="item in group" ng-class="{'active':isCurrentView('{{ item.url }}')}">
-    <a href="#/view/{{ item.url }}">{{ item.menu_title }}<span class="sr-only">(current)</span></a>
-  </li>
-</ul>
+<div ng-repeat="(key, value) in menu| groupBy:'group'">
+  <ul class="nav nav-sidebar">
+    <li ng-repeat="item in value" ng-class="getMenuItemClass(item)">
+      <a href="/#/view/{{item.$id}}">{{item.$id}}</a>
+    </li>
+  </ul>
+</div>
