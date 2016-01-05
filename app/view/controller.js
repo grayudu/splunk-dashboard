@@ -7,7 +7,7 @@ angular.module('myApp.view', ['ngRoute'])
   function($scope, $http, $routeParams, $rootScope, Config, Menu) {
     $scope.message = 'in controller';
     $scope.getMenuItemClass = function(config) {
-      return (config.$id === $routeParams.view_name) ? 'active' : '';
+      return (config.name === $routeParams.view_name) ? 'active' : '';
     };
     $scope.menu = Menu;
 

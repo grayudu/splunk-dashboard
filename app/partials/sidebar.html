@@ -1,7 +1,7 @@
 <div ng-repeat="(key, value) in menu| groupBy:'group'">
   <ul class="nav nav-sidebar">
     <li ng-repeat="item in value" ng-class="getMenuItemClass(item)">
-      <a href="/#/view/{{item.$id}}">{{item.$id}}</a>
+      <a href="/#/view/{{item.name}}">{{item.name}}</a>
     </li>
   </ul>
 </div>
