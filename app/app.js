@@ -50,22 +50,6 @@ app.config(['$routeProvider', function($routeProvider) {
           window.location.replace("#/login");
         });
       },
-      authenticate: function (done) {
-        require([
-          'jquery',
-          'jquery.cookie'
-        ], function ($) {
-          var splunkSessionKey = $.cookie('splunk_sessionkey');
-          var splunkCurrentUser = $.cookie('splunk_username');
-          if (splunkSessionKey) {
-            done(null, {
-              sessionKey: splunkSessionKey,
-              username: splunkCurrentUser
-            });
-          } else {
-            window.location.replace('#/login');
-          }
-        });
-      }
+      authenticate: function (done) {}
     });
   });

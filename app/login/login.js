@@ -24,24 +24,11 @@ angular.module('myApp.login', ['ngRoute'])
       var password = $("#pwbox").val();
 
       var http = new jssdk.ProxyHttp("/proxy");
-      var service = new jssdk.Service(http,
-      {
-        username: username,
-        password: password
-      });
-
-      service.login(function(err, success) {
-        if (err) {
-            console.log(err);
-            throw err;
-        }
-        else {
-          var key = service.sessionKey;
-          $.cookie("splunk_sessionkey", key);
-          $.cookie("splunk_username", username);
-          window.location.href = "#/view/home";
-        }
-      });
+      var service = new jssdk.Service(http);
+      var key = service.sessionKey;
+      $.cookie("splunk_sessionkey", key);
+      $.cookie("splunk_username", username);
+      window.location.href = "#/view/Home";
 
     });
   }
