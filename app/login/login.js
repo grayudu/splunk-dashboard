@@ -16,8 +16,10 @@ angular.module('myApp.login', ['ngRoute'])
 .controller('LoginCtrl', ['$scope', function($scope) {
   function onLogin() {
     require([
-      "splunkjs/splunk"
-    ], function (jssdk) {
+      "splunkjs/splunk",
+      "jquery",
+      "jquery.cookie"
+    ], function (jssdk, $) {
       var username = $("#usernamebox").val();
       var password = $("#pwbox").val();
 
