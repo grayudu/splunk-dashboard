@@ -3,17 +3,17 @@
 var viewModule = angular.module('myApp.view', ['ngRoute']);
 
 var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
-  Menu, $timeout, $filter) {
+  $timeout, $filter) {
   $scope.getMenuItemClass = function(config) {
     return (config.name === $routeParams.view_name) ?
       'active' : '';
   };
   $scope.view_name = $routeParams.view_name;
-  $scope.menu = Menu;
   $scope.panels = [];
 
   require(["splunkjs/ready!", "splunk_utils"], function(mvc, util) {
     Config.$loaded().then(function() {
+      $scope.menu = Config.menu;
 
       angular.forEach(Config.searches, function(value, key) {
         util.createSearch(value);
@@ -52,7 +52,6 @@ viewModule.controller('ViewCtrl', [
   '$routeParams',
   '$rootScope',
   'Config',
-  'Menu',
   '$timeout',
   '$filter',
   viewCtrl

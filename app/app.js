@@ -16,10 +16,6 @@ app.factory('Config', function(Firebase, $firebaseObject, fbURL) {
   return $firebaseObject(new Firebase(fbURL));
 });
 
-app.factory('Menu', function(Firebase, $firebaseArray, fbURL) {
-  return $firebaseArray(new Firebase(fbURL + '/menu'));
-});
-
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view/:view_name', {
     templateUrl: 'home/home.html',
