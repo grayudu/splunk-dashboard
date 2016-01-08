@@ -29,7 +29,8 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc, _) {
         '$$hashKey', 'el'
       ];
       if (excludedValues.indexOf(val) == -1) {
-        options[val] = chart[val];
+        var fixedVal = val.replace(/_/g, ".");
+        options[fixedVal] = chart[val];
       }
     });
 
