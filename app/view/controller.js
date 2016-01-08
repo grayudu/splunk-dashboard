@@ -30,8 +30,7 @@ var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
             }
           });
 
-          var orderedPanels = $filter('ordet rBy')(menu.Panels,
-            'row');
+          var orderedPanels = $filter('orderBy')(menu.Panels, 'row');
           angular.forEach(orderedPanels, function(panel) {
             panel.rowWidth = rowMap[panel.row];
             $scope.panels.push(panel);
