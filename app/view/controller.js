@@ -1,9 +1,9 @@
 'use strict';
 
-var a = angular.module('myApp.view', ['ngRoute']);
+var viewModule = angular.module('myApp.view', ['ngRoute']);
 
 var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
-  Menu, $timeout) {
+  Menu, $timeout, $filter) {
   $scope.getMenuItemClass = function(config) {
     return (config.name === $routeParams.view_name) ?
       'active' : '';
@@ -12,24 +12,30 @@ var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
   $scope.menu = Menu;
   $scope.panels = [];
 
-  var deps = [
-    "splunkjs/ready!",
-    "splunk_utils"
-  ];
-  require(deps, function(mvc, util) {
+  require(["splunkjs/ready!", "splunk_utils"], function(mvc, util) {
     Config.$loaded().then(function() {
 
       angular.forEach(Config.searches, function(value, key) {
         util.createSearch(value);
       });
 
-      angular.forEach(Config.menu, function(value, key) {
-        if (value.name === $scope.view_name) {
-          angular.forEach(value.Panels, function(panel) {
-            console.log(panel);
+      angular.forEach(Config.menu, function(menu) {
+        if (menu.name === $scope.view_name) {
+          var rowMap = {};
+          angular.forEach(menu.Panels, function(panel) {
+            if (panel.row in rowMap) {
+              rowMap[panel.row] += 1;
+            } else {
+              rowMap[panel.row] = 1;
+            }
+          });
+
+          var orderedPanels = $filter('ordet rBy')(menu.Panels,
+            'row');
+          angular.forEach(orderedPanels, function(panel) {
+            panel.rowWidth = rowMap[panel.row];
             $scope.panels.push(panel);
             $timeout(function() {
-              console.log('here in timeout');
               util.createChart(panel);
             })
           });
@@ -41,7 +47,7 @@ var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
   });
 }
 
-a.controller('ViewCtrl', [
+viewModule.controller('ViewCtrl', [
   '$scope',
   '$http',
   '$routeParams',
@@ -49,5 +55,6 @@ a.controller('ViewCtrl', [
   'Config',
   'Menu',
   '$timeout',
+  '$filter',
   viewCtrl
 ]);
