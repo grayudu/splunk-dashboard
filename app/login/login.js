@@ -16,21 +16,28 @@ angular.module('myApp.login', ['ngRoute'])
 .controller('LoginCtrl', ['$scope', function($scope) {
   function onLogin() {
     require([
-      "splunkjs/splunk",
       "jquery",
-      "jquery.cookie"
-    ], function (jssdk, $) {
-      var username = $("#usernamebox").val();
-      var password = $("#pwbox").val();
-
+      "splunkjs/splunk",
+    ], function($, jssdk) {
       var http = new jssdk.ProxyHttp("/proxy");
-      var service = new jssdk.Service(http);
-      var key = service.sessionKey;
-      $.cookie("splunk_sessionkey", key);
-      $.cookie("splunk_username", username);
-      window.location.href = "#/view/Home";
-
+      var service = new jssdk.Service(http, {
+        username: "admin",
+        scheme: "https",
+        host: "localhost",
+        port: 8089
+      });
+      service.login(function(err) {
+        if (!err) {
+          var key = service.sessionKey;
+          $.cookie("splunk_sessionkey", key);
+          $.cookie("splunk_username", 'admin');
+          window.location.replace("/#/view/Home");
+        } else {
+          console.error("Login failed: ", err);
+        }
+      });
     });
   }
+
   $scope.onLogin = onLogin;
 }]);

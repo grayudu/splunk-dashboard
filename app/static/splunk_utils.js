@@ -24,9 +24,11 @@ define(deps, function(ChartView, EventsViewerView, SearchManager, mvc, _) {
 
     var options = {}
 
-    Object.getOwnPropertyNames(chart).forEach(function (val, index, array) {
-      var excludedValues = ['class', 'description', 'title', '$$hashKey', 'el'];
-      if(excludedValues.indexOf(val) == -1) {
+    Object.getOwnPropertyNames(chart).forEach(function(val, index, array) {
+      var excludedValues = ['class', 'description', 'title',
+        '$$hashKey', 'el'
+      ];
+      if (excludedValues.indexOf(val) == -1) {
         options[val] = chart[val];
       }
     });

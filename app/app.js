@@ -1,5 +1,6 @@
 'use strict';
 
+
 var app = angular.module('myApp', [
   'ngRoute',
   'myApp.login',
@@ -11,8 +12,8 @@ var app = angular.module('myApp', [
 
 app.constant('fbURL', 'https://burning-heat-5729.firebaseio.com');
 
-app.factory('Config', function(Firebase, $firebaseArray, fbURL) {
-  return $firebaseArray(new Firebase(fbURL));
+app.factory('Config', function(Firebase, $firebaseObject, fbURL) {
+  return $firebaseObject(new Firebase(fbURL));
 });
 
 app.factory('Menu', function(Firebase, $firebaseArray, fbURL) {
@@ -29,27 +30,36 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'ContactCtrl'
   });
   $routeProvider.otherwise({
-    redirectTo: '/login'});
-  }]);
-
-  require.config({
-    baseUrl: 'static/',
+    redirectTo: '/login'
   });
+}]);
 
-  require(['splunkjs/config'], function(_) {
-    splunkjs.config({
-      port: 8089,
-      scheme: 'https',
-      proxyPath: '/proxy',
-      host: 'localhost',
-      freeLicense: true,
-      onSessionExpired: function () {
-        require(["jquery", "jquery.cookie"], function ($) {
-          $.cookie("splunk_sessionkey", null, { path: '/'});
-          $.cookie("splunk_username", null, { path: '/'});
-          window.location.replace("#/login");
+require.config({
+  baseUrl: "static/"
+});
+
+splunkjs.config({
+  proxyPath: "/proxy",
+  scheme: "https",
+  host: "localhost",
+  port: 8089,
+  authenticate: function(done) {
+    require([
+      "jquery",
+      "jquery.cookie"
+    ], function($) {
+      var splunkSessionKey = $.cookie("splunk_sessionkey");
+      var splunkCurrentUser = $.cookie("splunk_username");
+
+      if (splunkSessionKey) {
+        done(null, {
+          sessionKey: splunkSessionKey,
+          username: splunkCurrentUser
         });
-      },
-      authenticate: function (done) {}
+      } else {
+        console.log('auth failed');
+        // window.location.replace("login_form.html");
+      }
     });
-  });
+  }
+});
