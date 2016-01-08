@@ -3,43 +3,42 @@
 var a = angular.module('myApp.view', ['ngRoute']);
 
 var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
-  Menu) {
+  Menu, $timeout) {
   $scope.getMenuItemClass = function(config) {
     return (config.name === $routeParams.view_name) ?
       'active' : '';
   };
   $scope.view_name = $routeParams.view_name;
   $scope.menu = Menu;
+  $scope.panels = [];
 
   var deps = [
     "splunkjs/ready!",
-    "splunkjs/mvc/searchmanager",
-    "splunkjs/mvc/chartview",
-    "splunkjs/mvc/eventsviewerview"
+    "splunk_utils"
   ];
-  require(deps, function(mvc, SearchManager, ChartView, EventsViewerView) {
-    var mysearch = new SearchManager({
-      id: "search1",
-      preview: true,
-      cache: true,
-      status_buckets: 300,
-      search: "index=_internal | tail 1000 | stats count by sourcetype"
+  require(deps, function(mvc, util) {
+    Config.$loaded().then(function() {
+
+      angular.forEach(Config.searches, function(value, key) {
+        util.createSearch(value);
+      });
+
+      angular.forEach(Config.menu, function(value, key) {
+        if (value.name === $scope.view_name) {
+          angular.forEach(value.Panels, function(panel) {
+            console.log(panel);
+            $scope.panels.push(panel);
+            $timeout(function() {
+              console.log('here in timeout');
+              util.createChart(panel);
+            })
+          });
+        }
+      });
+
     });
 
-    var mychart = new ChartView({
-      id: "chart1",
-      managerid: "search1",
-      type: "bar",
-      el: $("#mychart")
-    }).render();
-
-    var myeventsviewer = new EventsViewerView({
-      id: "eviewer1",
-      managerid: "search1",
-      el: $("#myeventsviewer")
-    }).render();
   });
-
 }
 
 a.controller('ViewCtrl', [
@@ -49,5 +48,6 @@ a.controller('ViewCtrl', [
   '$rootScope',
   'Config',
   'Menu',
+  '$timeout',
   viewCtrl
 ]);
