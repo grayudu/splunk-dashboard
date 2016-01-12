@@ -1,6 +1,5 @@
 'use strict';
 
-
 var app = angular.module('myApp', [
   'ngRoute',
   'myApp.login',
@@ -10,10 +9,9 @@ var app = angular.module('myApp', [
   'angular.filter'
 ]);
 
-app.constant('fbURL', 'https://burning-heat-5729.firebaseio.com');
-
-app.factory('Config', function(Firebase, $firebaseObject, fbURL) {
-  return $firebaseObject(new Firebase(fbURL));
+app.factory('Config', function(Firebase, $firebaseObject) {
+  var url = 'https://splunk-dashboard.firebaseio.com';
+  return $firebaseObject(new Firebase(url));
 });
 
 app.config(['$routeProvider', function($routeProvider) {

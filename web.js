@@ -27,7 +27,6 @@ app.use('/proxy', proxy(splunkServerUrl, {
 // serve the index.html through the express framework
 // note that the inner function refers to the dependency
 // for the library, not the instance
-app.use('/favicon.ico', express.static(__dirname + "/app/img/sno.png"));
 app.use('/', express.static(__dirname + "/app"));
 app.use('/node_modules', express.static(__dirname + "/node_modules"));
 app.listen(process.env.PORT || 5000);

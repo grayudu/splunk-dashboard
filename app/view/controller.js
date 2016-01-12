@@ -2,7 +2,7 @@
 
 var viewModule = angular.module('myApp.view', ['ngRoute']);
 
-var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
+var viewCtrl = function($scope, $routeParams, $rootScope, Config,
   $timeout, $filter) {
   $scope.getMenuItemClass = function(config) {
     return (config.name === $routeParams.view_name) ?
@@ -48,7 +48,6 @@ var viewCtrl = function($scope, $http, $routeParams, $rootScope, Config,
 
 viewModule.controller('ViewCtrl', [
   '$scope',
-  '$http',
   '$routeParams',
   '$rootScope',
   'Config',
