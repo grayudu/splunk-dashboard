@@ -50,9 +50,23 @@ splunkjs.config({
           sessionKey: splunkSessionKey,
           username: splunkCurrentUser
         });
-      } else {
-        console.log('auth failed');
-        // window.location.replace("login_form.html");
+      },
+      authenticate: function (done) {
+        require([
+          'jquery',
+          'jquery.cookie'
+        ], function ($) {
+          var splunkSessionKey = $.cookie('splunk_sessionkey');
+          var splunkCurrentUser = $.cookie('splunk_username');
+          if (splunkSessionKey) {
+            done(null, {
+              sessionKey: splunkSessionKey,
+              username: splunkCurrentUser
+            });
+          } else {
+            window.location.replace('#/login');
+          }
+        });
       }
     });
   }
